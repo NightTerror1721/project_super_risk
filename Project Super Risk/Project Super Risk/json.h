@@ -18,6 +18,8 @@ namespace json_utils
 class JsonSerializable
 {
 public:
+	~JsonSerializable();
+
 	virtual Json serialize() const = 0;
 	virtual void unserialize(const Json& json) = 0;
 };

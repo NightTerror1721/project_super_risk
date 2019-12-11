@@ -22,7 +22,7 @@ namespace scenario
 		};
 	}
 
-	class Mesh : Lockable, public JsonSerializable
+	class Mesh : public JsonSerializable, Lockable
 	{
 	private:
 		sf::ConvexShape _shape;

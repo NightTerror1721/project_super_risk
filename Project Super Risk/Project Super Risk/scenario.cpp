@@ -16,9 +16,13 @@ bool scenario::Lockable::isLocked() { return _lock; }
 
 
 scenario::Mesh::Mesh() :
+	JsonSerializable{},
+	Lockable{},
 	_shape{}
 {}
 scenario::Mesh::Mesh(const scenario::Mesh& mesh) :
+	JsonSerializable{},
+	Lockable{},
 	_shape{ mesh._shape }
 {}
 
@@ -76,8 +80,8 @@ Json scenario::Mesh::serialize() const
 	const size_t size = this->size();
 	j["count"] = static_cast<int32_t>(size);
 	
-	std::vector<int32_t> x_axis{ static_cast<int32_t>(size) };
-	std::vector<int32_t> y_axis{ static_cast<int32_t>(size) };
+	std::vector<int32_t> x_axis(size);
+	std::vector<int32_t> y_axis(size);
 	for (size_t i = 0; i < size; ++i)
 	{
 		const auto& point = _shape.getPoint(i);

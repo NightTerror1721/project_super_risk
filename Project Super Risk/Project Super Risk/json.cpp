@@ -6,6 +6,8 @@
 namespace fs = std::experimental::filesystem;
 using json_utils::JsonException;
 
+JsonSerializable::~JsonSerializable() {}
+
 JsonException::JsonException(const std::string& msg) :
 	exception{ msg.c_str() }
 {}

@@ -18,17 +18,17 @@ resource::ResourceFolder::ResourceFolder(const ResourceFolder& base, const std::
 	fs::create_directories(_base);
 }
 
-Path resource::ResourceFolder::file(const Path& other, bool& error) const
+Path resource::ResourceFolder::file(const Path& other, bool check_exists, bool& error) const
 {
 	Path fpath = _base / other;
-	error = !fs::exists(fpath) || !fs::is_directory(fpath);
+	error = check_exists && (!fs::exists(fpath) || !fs::is_regular_file(fpath));
 	return std::move(fpath);
 }
 
-void resource::ResourceFolder::readAndInject(JsonSerializable& object, const Path& file)
+void resource::ResourceFolder::readAndInject(JsonSerializable& object, const Path& file) const
 {
 	bool error = false;
-	Path path = this->file(file, error);
+	Path path = this->file(file, true, error);
 	if (error)
 		return;
 
@@ -37,15 +37,20 @@ void resource::ResourceFolder::readAndInject(JsonSerializable& object, const Pat
 	catch (...) {}
 }
 
-void resource::ResourceFolder::readAndInject(JsonSerializable& object, const std::string& file)
+void resource::ResourceFolder::readAndInject(JsonSerializable& object, const std::string& file) const
 {
 	readAndInject(object, Path{ file });
 }
 
-void resource::ResourceFolder::extractAndWrite(const JsonSerializable& object, const Path& file)
+void resource::ResourceFolder::readAndInject(JsonSerializable& object, const char* file) const
+{
+	readAndInject(object, Path{ file });
+}
+
+void resource::ResourceFolder::extractAndWrite(const JsonSerializable& object, const Path& file) const
 {
 	bool error = false;
-	Path path = this->file(file, error);
+	Path path = this->file(file, false, error);
 	if (error)
 		return;
 
@@ -54,16 +59,21 @@ void resource::ResourceFolder::extractAndWrite(const JsonSerializable& object, c
 	catch (...) {}
 }
 
-void resource::ResourceFolder::extractAndWrite(const JsonSerializable& object, const std::string& file)
+void resource::ResourceFolder::extractAndWrite(const JsonSerializable& object, const std::string& file) const
+{
+	extractAndWrite(object, Path{ file });
+}
+
+void resource::ResourceFolder::extractAndWrite(const JsonSerializable& object, const char* file) const
 {
 	extractAndWrite(object, Path{ file });
 }
 
 
-bool resource::ResourceFolder::readFile(const Path& file, std::function<void(std::ifstream&)>& action)
+bool resource::ResourceFolder::readFile(const Path& file, std::function<void(std::ifstream&)>& action) const
 {
 	bool error = false;
-	Path path = this->file(file, error);
+	Path path = this->file(file, true, error);
 	if (error)
 		return false;
 
@@ -73,15 +83,20 @@ bool resource::ResourceFolder::readFile(const Path& file, std::function<void(std
 	return true;
 }
 
-bool resource::ResourceFolder::readFile(const std::string& file, std::function<void(std::ifstream&)>& action)
+bool resource::ResourceFolder::readFile(const std::string& file, std::function<void(std::ifstream&)>& action) const
 {
 	return readFile(Path{ file }, action);
 }
 
-bool resource::ResourceFolder::writeFile(const Path& file, std::function<void(std::ofstream&)>& action)
+bool resource::ResourceFolder::readFile(const char* file, std::function<void(std::ifstream&)>& action) const
+{
+	return readFile(Path{ file }, action);
+}
+
+bool resource::ResourceFolder::writeFile(const Path& file, std::function<void(std::ofstream&)>& action) const
 {
 	bool error = false;
-	Path path = this->file(file, error);
+	Path path = this->file(file, false, error);
 	if (error)
 		return false;
 
@@ -91,7 +106,12 @@ bool resource::ResourceFolder::writeFile(const Path& file, std::function<void(st
 	return true;
 }
 
-bool resource::ResourceFolder::writeFile(const std::string& file, std::function<void(std::ofstream&)>& action)
+bool resource::ResourceFolder::writeFile(const std::string& file, std::function<void(std::ofstream&)>& action) const
+{
+	return writeFile(Path{ file }, action);
+}
+
+bool resource::ResourceFolder::writeFile(const char* file, std::function<void(std::ofstream&)>& action) const
 {
 	return writeFile(Path{ file }, action);
 }
