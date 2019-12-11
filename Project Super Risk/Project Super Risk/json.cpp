@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 
-namespace fs = std::experimental::filesystem;
+namespace fs = std::filesystem;
 using json_utils::JsonException;
 
 JsonSerializable::~JsonSerializable() {}
@@ -77,7 +77,7 @@ Json json_utils::extract(const JsonSerializable& object)
 	return std::move(object.serialize());
 }
 
-void json_utils::read_and_inject(JsonSerializable& object, const std::experimental::filesystem::path& file_path)
+void json_utils::read_and_inject(JsonSerializable& object, const std::filesystem::path& file_path)
 {
 	json_utils::inject(object, json_utils::read(file_path));
 }
@@ -87,7 +87,7 @@ void json_utils::read_and_inject(JsonSerializable& object, const std::string& fi
 	json_utils::inject(object, json_utils::read(file_path));
 }
 
-void json_utils::extract_and_write(const JsonSerializable& object, const std::experimental::filesystem::path& file_path)
+void json_utils::extract_and_write(const JsonSerializable& object, const std::filesystem::path& file_path)
 {
 	json_utils::write(file_path, extract(object));
 }

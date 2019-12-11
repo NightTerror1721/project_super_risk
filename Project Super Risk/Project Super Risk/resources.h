@@ -6,7 +6,7 @@
 
 #include "json.h"
 
-namespace fs = std::experimental::filesystem;
+namespace fs = std::filesystem;
 
 using Path = fs::path;
 
