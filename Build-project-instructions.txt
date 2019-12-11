@@ -1,0 +1,46 @@
+[RELEASE]
+
+C/C++-General:
+C:\Projects\Project Super Risk\external-libs\SFML-2.5.1\include
+
+Vinculador-General:
+C:\Projects\Project Super Risk\external-libs\SFML-2.5.1\lib
+
+Vinculador-Entrada:
+freetype.lib
+ogg.lib
+openal32.lib
+sfml-audio.lib
+sfml-graphics.lib
+sfml-main.lib
+sfml-network.lib
+sfml-system.lib
+sfml-window.lib
+vorbis.lib
+vorbisenc.lib
+vorbisfile.lib
+flac.lib
+
+
+[DEBUG]
+
+C/C++-General:
+C:\Projects\Project Super Risk\external-libs\SFML-2.5.1\include
+
+Vinculador-General:
+C:\Projects\Project Super Risk\external-libs\SFML-2.5.1\lib
+
+Vinculador-Entrada:
+freetype.lib
+ogg.lib
+openal32.lib
+sfml-audio-d.lib
+sfml-graphics-d.lib
+sfml-main-d.lib
+sfml-network-d.lib
+sfml-system-d.lib
+sfml-window-d.lib
+vorbis.lib
+vorbisenc.lib
+vorbisfile.lib
+flac.lib

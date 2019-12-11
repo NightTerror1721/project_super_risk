@@ -6,10 +6,15 @@
 *.lo
 *.o
 *.obj
+*.suo
+*.db
+*.opendb
 
 # Precompiled Headers
 *.gch
 *.pch
+*.ipch
+/.vs*
 
 # Compiled Dynamic libraries
 *.so
