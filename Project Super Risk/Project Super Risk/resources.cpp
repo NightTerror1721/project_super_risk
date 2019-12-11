@@ -75,7 +75,7 @@ bool resource::ResourceFolder::readFile(const Path& file, std::function<void(std
 
 bool resource::ResourceFolder::readFile(const std::string& file, std::function<void(std::ifstream&)>& action)
 {
-	readFile(Path{ file }, action);
+	return readFile(Path{ file }, action);
 }
 
 bool resource::ResourceFolder::writeFile(const Path& file, std::function<void(std::ofstream&)>& action)
@@ -93,5 +93,5 @@ bool resource::ResourceFolder::writeFile(const Path& file, std::function<void(st
 
 bool resource::ResourceFolder::writeFile(const std::string& file, std::function<void(std::ofstream&)>& action)
 {
-	writeFile(Path{ file }, action);
+	return writeFile(Path{ file }, action);
 }

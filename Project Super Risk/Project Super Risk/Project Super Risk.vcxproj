@@ -128,10 +128,13 @@
     <ClCompile Include="json.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="resources.cpp" />
+    <ClCompile Include="scenario.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="json.h" />
+    <ClInclude Include="limit.h" />
     <ClInclude Include="resources.h" />
+    <ClInclude Include="scenario.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

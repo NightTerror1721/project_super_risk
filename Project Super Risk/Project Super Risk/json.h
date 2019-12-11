@@ -44,5 +44,18 @@ namespace json_utils
 
 	void extract_and_write(const JsonSerializable& object, const std::experimental::filesystem::path& file_path);
 	void extract_and_write(const JsonSerializable& object, const std::string& file_path);
+
+
+	inline bool has(const Json& json, const std::string& name)
+	{
+		return json.find(name) != json.cend();
+	}
+
+	template<class _Ty>
+	const _Ty& get_or_default(const Json& json, const std::string& name, const _Ty& default_value)
+	{
+		auto it = json.find(name);
+		return it != json.cend() ? it.value().get<_Ty>() : default_value;
+	}
 }
 

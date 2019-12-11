@@ -94,3 +94,4 @@ void json_utils::extract_and_write(const JsonSerializable& object, const std::st
 {
 	json_utils::write(file_path, extract(object));
 }
+
