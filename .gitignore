@@ -4,6 +4,10 @@
 # External Libs
 external-libs*
 
+#VS
+/.vs*
+*.vcxproj
+
 # Compiled Object files
 *.slo
 *.lo
@@ -17,7 +21,6 @@ external-libs*
 *.gch
 *.pch
 *.ipch
-/.vs*
 
 # Compiled Dynamic libraries
 *.so
