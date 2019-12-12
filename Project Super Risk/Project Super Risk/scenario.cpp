@@ -1,28 +1,18 @@
 #include "scenario.h"
 
-#include "limit.h"
+#include "utils.h"
 
 #define check_bounds(idx) ((idx) >= 0 && (idx) < this->_shape.getPointCount())
-
-
-scenario::Lockable::Lockable() :
-	_lock{}
-{}
-
-void scenario::Lockable::lock() { _lock = true; }
-bool scenario::Lockable::isLocked() { return _lock; }
 
 
 
 
 scenario::Mesh::Mesh() :
 	JsonSerializable{},
-	Lockable{},
 	_shape{}
 {}
 scenario::Mesh::Mesh(const scenario::Mesh& mesh) :
 	JsonSerializable{},
-	Lockable{},
 	_shape{ mesh._shape }
 {}
 

@@ -7,22 +7,8 @@
 
 namespace scenario
 {
-	namespace
-	{
-		class Lockable
-		{
-		private:
-			bool _lock;
 
-		protected:
-			Lockable();
-
-			void lock();
-			bool isLocked();
-		};
-	}
-
-	class Mesh : public JsonSerializable, Lockable
+	class Mesh : public JsonSerializable
 	{
 	private:
 		sf::ConvexShape _shape;

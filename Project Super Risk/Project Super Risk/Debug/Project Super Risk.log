@@ -1,1 +1,5 @@
-﻿  Project Super Risk.vcxproj -> D:\Projects\Project Super Risk\Project Super Risk\Debug\Project Super Risk.exe
+﻿  scenario.cpp
+  utils.cpp
+  Generando código...
+C:\Projects\Project Super Risk\Project Super Risk\Project Super Risk\scenario.cpp(61): warning C4172: devolución de dirección de la variable local o temporal
+  Project Super Risk.vcxproj -> C:\Projects\Project Super Risk\Project Super Risk\Debug\Project Super Risk.exe
