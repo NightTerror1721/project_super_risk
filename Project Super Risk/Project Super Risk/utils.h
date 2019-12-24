@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <string>
 #include <cctype>
+#include <type_traits>
 
 namespace utils
 {
@@ -69,3 +70,50 @@ namespace utils
 		UniqueID current() const;
 	};
 }
+
+
+template<class _Ty>
+class Accessor
+{
+private:
+	_Ty* _ptr;
+
+public:
+	inline Accessor(_Ty* ptr) :
+		_ptr{ ptr }
+	{}
+
+	inline Accessor<_Ty> operator= (const Accessor<_Ty>& a)
+	{
+		_ptr = a._ptr;
+		return *this;
+	}
+
+	inline bool operator== (const Accessor<_Ty>& a) const { return _ptr == a._ptr; }
+	inline bool operator!= (const Accessor<_Ty>& a) const { return _ptr != a._ptr; }
+	inline bool operator> (const Accessor<_Ty>& a) const { return _ptr > a._ptr; }
+	inline bool operator< (const Accessor<_Ty>& a) const { return _ptr < a._ptr; }
+	inline bool operator>= (const Accessor<_Ty>& a) const { return _ptr >= a._ptr; }
+	inline bool operator<= (const Accessor<_Ty>& a) const { return _ptr <= a._ptr; }
+
+	inline operator bool() const { return _ptr; }
+	inline bool operator! () const { return !_ptr; }
+
+	inline _Ty* operator-> () { return _ptr; }
+	inline const _Ty* operator-> () const { return _ptr; }
+
+	inline const _Ty* operator* () const { return _ptr; }
+
+	template<class _Ty2>
+	inline operator Accessor<_Ty2>()
+	{
+		static_assert(std::is_convertible(_Ty2, _Ty) || std::is_base_of(_Ty, _Ty2));
+		return { reinterpret_cast<_Ty2*>(_ptr) };
+	}
+
+	template<class _Ty, class _Ty2>
+	inline Accessor<_Ty2> safe_cast() { return { dynamic_cast<_Ty2*>(_ptr) }; }
+
+	template<class _Ty, class _Ty2>
+	inline Accessor<_Ty2> unsafe_cast() { return static_cast<Accessor<_Ty2>>(*this); }
+};
